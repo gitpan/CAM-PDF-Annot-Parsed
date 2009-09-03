@@ -1,0 +1,63 @@
+CAM-PDF-Annot-Parsed version 0.01
+=================================
+
+NAME
+	CAM::PDF::Annot::Parsed - Pluggable parsing for PDF annotations
+
+SYNOPSIS
+	# Define a parsing interface for the annotations
+	package MyYAMLTinyParser;
+	use base qw(YAML::Tiny);
+	# MUST DEFINE parse METHOD!! it takes as input the string contents
+	#  of the pdf annotations and must spit out the inflated version of it
+	sub parse { return shift->read_string( shift )->[0] }
+	1;
+
+	package main;
+	my $pdf = CAM::PDF::Annot::Parsed->( 'file.pdf', 'MyYAMLTinyParser' );
+
+	for my $parsed_annot ( @{$pdf->getParsedAnnots} ) {
+		# Since I am using YAML::Tiny to parse it, each $parsed_annot
+		#  is a YAML::Tiny object
+		# if document has annotations with the mask:
+		
+		#author:
+		#    name: Donato Azevedo
+		#
+
+		print $parsed_annot->[0]{author}{name}, "\n";
+	}
+
+DESCRIPTION
+
+	This module provides a way to use a pluggable parser to process
+	comments on annotations of PDF documents. Annotations are free
+	text strings generally contained in pop ups for drawing markups
+	of PDF documents.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  CAM::PDF::Annot
+
+COPYRIGHT AND LICENCE
+
+Put the correct copyright and licence information here.
+
+Copyright (C) 2009 by Donato Azevedo
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+

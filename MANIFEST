@@ -1,0 +1,8 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/YAML-Tiny.t
+t/pdf-yaml-tiny.pdf
+lib/CAM/PDF/Annot/Parsed.pm
+META.yml                                 Module meta-data (added by MakeMaker)
